@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div
+			class="p-10 text-center  mt-5 d-flex justify-content-center align-items-center vh-100">
+			<div class="col-md-10 p-5">
+				<div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+					<div class="card-header text-center">
+						<p class="fs-4">View Product</p>
+
+						<!-- Success Message -->
+						<p th:if="${session.successMsg}" class="text-success fw-bold">[[${session.successMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+
+						<!-- Error Message -->
+						<p th:if="${session.errormessage}" class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+
+					</div>
+					<div class="card-body">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">SL</th>
+									<th scope="col">Image</th>
+									<th scope="col">Category</th>
+									<th scope="col">Title</th>
+									<th scope="col">Price</th>
+
+									<th scope="col">Discount</th>
+									<th scope="col">Discount Price</th>
+
+
+									<th scope="col">Stock</th>
+									<th scope="col">Status</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="pro,p:${products}">
+									<th scope="row">[[${p.count}]]</th>
+									<td><img th:src="@{'/image/product_img/'+${pro.image}}"
+										width="50px" height="50px"></td>
+									<td>[[${pro.category}]]</td>
+									<td>[[${pro.title}]]</td>
+									<td>[[${pro.price}]]</td>
+
+									<td>[[${pro.discount}]]</td>
+									<td>[[${pro.discountPrice}]]</td>
+
+									<td>[[${pro.stock}]]</td>
+									<td>[[${pro.isActive}]]</td>
+									<td><a th:href="@{'/admin/loadEditProduct/'+${pro.id}}"
+										class="btn btn-primary btn-sm"><i
+											class="fa-solid fa-pen-to-square fa-1x"> Edit</i></a> <a
+										th:href="@{'/admin/deleteProduct/'+${pro.id}}"
+										class="btn btn-danger btn-sm"><i
+											class="fa-solid fa-trash-can fa-1x "> Delete</i></a></td>
+								</tr>
+							</tbody>
+						</table>
+
+
+						<div class="row">
+							<div class="col-md-4">Total Product : [[${totalElement}]]</div>
+							<div class="col-md-6 offset-md-1">
+								<th:block th:if="${productSize>0}">
+
+									<nav aria-label="Page navigation example">
+										<ul class="pagination">
+											<li class="page-item"><a class="page-link"
+												th:classappend="${pageNo==0}?'disabled':''"
+												th:href="@{'/products?pageNo='+${pageNo-1}}"
+												aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+											</a></li>
+											<li th:each="i:${#numbers.sequence(1,totalPages)}"
+												class="page-item"
+												th:classappend="${pageNo+1==i}?'active':''"><a
+												class="page-link" th:href="@{'/products?pageNo='+${i-1}}">[[${i}]]</a></li>
+											<li class="page-item"><a class="page-link"
+												th:classappend="${isLast}?'disabled':''"
+												th:href="@{'/products?pageNo='+${pageNo+1}}"
+												aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+											</a></li>
+										</ul>
+									</nav>
+								</th:block>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

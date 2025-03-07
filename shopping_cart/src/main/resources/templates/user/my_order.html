@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+
+		<div class="container mt-5 p-1">
+
+			<div class="row">
+				<p class="text-center fs-3"> My Orders</p>
+				<!-- Success Message -->
+				<p th:if="${session.successMsg}"
+					class="text-success fw-bold text-center">[[${session.successMsg}]]</p>
+				<th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+
+				<!-- Error Message -->
+				<p th:if="${session.errormessage}"
+					class="text-danger text-center fw-bold">[[${session.errormessage}]]</p>
+				<th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+
+
+				<div class="col-md-12">
+				<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th scope="col">Order Id</th>
+								<th scope="col">Date</th>
+								<th scope="col">Product Detail</th>
+								<th scope="col">Price</th>
+								<th scope="col">Status</th>
+								<th scope="col">Action</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="o:${userorder}">
+								<th scope="row">[[${o.orderId}]]</th>
+								<td>[[${o.orderDate}]]</td>
+								<td>[[${o.product.title}]]</td>
+								<td>[[${o.quatity}]]</td>
+								<td>Quantity : [[${o.quatity}]]<br>Price :
+									[[${o.price}]]<br>Total Price : [[${o.quatity*o.price}]]
+								</td>
+								<td>[[${o.status}]]</td>
+								<th:block th:if="${o.status!='Cancel'}">
+									<td><a
+										th:href="@{'/user/update-status'(id=${o.id}, st=6)}"
+										class="btn btn-sm btn-danger">Cancel</a></td>
+								</th:block>
+
+								<th:block th:unless="${o.status!='Cancel'}">
+								<!-- 
+								 	<td><a th:href="@{/cancelorder} class="btn btn-sm btn-danger disabled">Cancel</a></td>
+								 -->
+								</th:block>
+
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+
+		</div>
+	</section>
+</body>
+</html>

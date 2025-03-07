@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>product detail</title>
+</head>
+<body>
+<section>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg" style="width: 60%; border-radius: 15px;">
+            <div class="card-body">
+                <!-- Product Details -->
+                <div class="row">
+  <div class="card-header">
+<p class="fs-4 text-center">product detail</p>
+        <!-- Success Message -->
+    <p th:if="${session.successMsg}" class="text-success text-center fw-bold">[[${session.successMsg}]]</p>
+    <th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+
+    <!-- Error Message -->
+    <p th:if="${session.errormessage}" class="text-danger text-center fw-bold">[[${session.errormessage}]]</p>
+        <th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+
+</div>
+                      <!-- Product Image -->
+                    <div class="col-md-5 text-center mt-5">
+                        <img  th:src="@{'/product_img/'+${productdetail.image}}" alt="Product Image" class="img-fluid rounded shadow-sm" style="max-height: 300px;">
+                    </div>
+                    <!-- Product Info -->
+                    <div class="col-md-7">
+                        <h1 class="display-6">[[${productdetail.title}]]</h1>
+                        <p class="text-success fw-bold">Status: 
+                        <th:block th:if="${productdetail.stock>0}">
+                        <span class="badge bg-success" >Available</span>
+                        </th:block>
+                        <th:block th:unless="${productdetail.stock>0}">
+                        <span class="badge bg-warning">out of stock</span>
+                        </th:block>
+                        </p>
+                        <p class="text-muted small">[[${productdetail.description}]]</p>
+                        
+                        
+
+                        <div class="my-3">
+                            <h6 class="fw-bold">Category</h6>
+                            <span class="badge bg-primary">[[${productdetail.category}]]</span>
+                        </div>
+
+                        <div class="my-3">
+                            <h6 class="fw-bold">Policy:</h6>
+                            <p class="small"><i class="fa-solid fa-shield-check text-success me-2"></i>30-day return policy</p>
+                            <p class="small"><i class="fa-solid fa-truck text-primary me-2"></i>Free shipping available</p>
+                            <p class="small"><i class="fa-solid fa-hand-holding-dollar text-info me-2"></i>Cash on delivery supported</p>
+                        </div>
+
+                        <div class="my-4">
+                            <h6 class="fw-bold">Price:</h6>
+                            <p class="h4 text-danger fw-bold mb-1">₹ [[${productdetail.discountPrice}]] <span class="text-muted text-decoration-line-through h5">[[${productdetail.price}]]</span></p>
+                            <p class="text-success small fw-bold">You save [[${productdetail.discount}]]%</p>
+                        </div>
+                        <th:block th:if="${productdetail.stock>0}">
+                        <th:block th:if="${user==null}">
+                      <a href="/signin" class="btn btn-warning btn-lg w-100"><i class="fa-solid fa-cart-plus"></i> Add to Cart</a>
+                        </th:block>
+                        
+                        
+    
+                        
+<th:block th:if="${productdetail != null and user != null}">
+    <a th:href="@{/user/addCart(pid=${productdetail.id}, uid=${user.id})}" class="btn btn-warning btn-lg w-100">
+        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+    </a>
+</th:block>
+                        </th:block>
+                        
+                       <th:block th:unless="${productdetail.stock>0}">
+                        <a href="#" class="btn btn-danger btn-lg w-100">out of stock</a>
+                        </th:block>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+</body>
+</html>

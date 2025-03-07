@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div
+			class="p-10 text-center  mt-5 d-flex justify-content-center align-items-center vh-100">
+			<div class="col-md-10 p-5">
+				<div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+					<div class="card-header text-center">
+						<p class="fs-4">View Cart</p>
+
+						<!-- Success Message -->
+						<p th:if="${session.successMsg}" class="text-success fw-bold">[[${session.successMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+
+						<!-- Error Message -->
+						<p th:if="${session.errormessage}" class="text-danger fw-bold">[[${session.errormessage}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+
+					</div>
+					<div class="card-body">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">SL</th>
+									<th scope="col">Image</th>
+									<th scope="col">Product Name</th>
+									<th scope="col">Price</th>
+									<th scope="col">Quantity</th>
+									<th scope="col">Total Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="cart,c:${carts}">
+									<th scope="row">[[${c.count}]]</th>
+									<td><img
+										th:src="@{'/product_img/'+${cart.product.image}}"
+										width="50px" height="50px"></td>
+									<td>[[${cart.product.title}]]</td>
+									<td>[[${cart.product.discountPrice}]]</td>
+									<td class="text-center"><a
+										th:href="@{'/user/cartUpdate?sy=de&cid='+${cart.id}}"><i
+											class="fa-solid fa-minus" style="color: #ff4a3d;"></i></a> [
+										[[${cart.quantity}]] ] <a
+										th:href="@{'/user/cartUpdate?sy=in&cid='+${cart.id}}"><i
+											class="fa-solid fa-plus" style="color: #2e511f;"></i></a></td>
+									<td class="fw-bold">&#8377; [[${cart.totalPrice}]]</td>
+
+								</tr>
+								<tr>
+									<td colspan="4"></td>
+									<td class="fw-bold">Total Price</td>
+									<td>[[${totalorderprice}]]</td>
+								</tr>
+
+							</tbody>
+						</table>
+						<div class="text-center"><a href="/user/orders" class="btn btn-primary">Place Order</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

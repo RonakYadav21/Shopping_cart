@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<section>
+<div class="container p-5">
+<p class="text-center fs-3 mt-4">Admin Dashboard</p>
+<div class="row p-5">
+<div class="col-md-4">
+<a href="/admin/loadaddproduct" class="text-decoration-none">
+    <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+  <div class="card-body text-center">
+  <i class="fa-regular fa-square-plus fa-2x" style="color: #0f56d2;"></i>
+   <p class="fs-5 fw-bold text-primary ">Add Product</p>
+  </div>
+  </div>
+</a>
+</div>
+
+<div class="col-md-4">
+<a href="/admin/category" class="text-decoration-none">
+    <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+  <div class="card-body text-center">
+<i class="fa-solid fa-list fs-5" style="color: #57b823;"></i><p class="fs-5 fw-bold text-success mt-1 ">Add Category</p>
+  </div>
+  </div>
+</a>
+</div>
+
+<div class="col-md-4">
+<a href="/admin/products" class="text-decoration-none">
+    <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+  <div class="card-body text-center">
+<i class="fa-solid fa-book-open fs-5" style="color: #c1300b;"></i><p class="fs-5 fw-bold text-danger mt-1 ">view Product</p>
+  </div>
+  </div>
+</a>
+</div>
+
+<div class="col-md-4">
+<a href="/admin/allorders" class="text-decoration-none">
+    <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+  <div class="card-body text-center">
+<i class="fa-solid fa-box fa-2xl" style="color: #ffd43b;"></i><p class="fs-5 fw-bold text-warning mt-1">orders</p>
+  </div>
+  </div>
+</a>
+</div>
+
+<div class="col-md-4">
+<a href="/admin/Users" class="text-decoration-none">
+    <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+  <div class="card-body text-center">
+<i class="fa-solid fa-user fa-2xl"></i>  
+<p class="fs-5 fw-bold text-black mt-1 ">Users</p>
+  </div>
+  </div>
+</a>
+</div>
+
+
+<div class="col-md-4">
+<a href="/admin/viewadmin" class="text-decoration-none">
+    <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+  <div class="card-body text-center">
+<i class="fa-solid fa-user fa-2xl"></i>  
+<p class="fs-5 fw-bold text-black mt-1 "> View Admin</p>
+  </div>
+  </div>
+</a>
+</div>
+
+
+<div class="col-md-4">
+<a href="/admin/add-admin" class="text-decoration-none">
+    <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+  <div class="card-body text-center">
+<i class="fa-solid fa-users-line fa-2xl"></i><p class="fs-5 fw-bold text-primary mt-2">Add Admin</p>
+  </div>
+  </div>
+</a>
+</div>
+
+
+</div>
+</div>
+</section>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Edit Product</title>
+</head>
+<body>
+<section>
+<div class="container-fluid p-5 mt-5 ">
+<div class="row">
+<div class="col-md-8 offset-md-2 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+<div class="card">
+<div class="card-header text-center">
+    <p class="fs-4">Edit Product</p>
+        <!-- Success Message -->
+    <p th:if="${session.successMsg}" class="text-success fw-bold">[[${session.successMsg}]]</p>
+    <th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+
+    <!-- Error Message -->
+    <p th:if="${session.errormessage}" class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+        <th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+    
+</div>
+
+<form action="/admin/edit_productitem" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" th:value="${product.id}">
+
+<div class="mb-3">
+<label>Enter Title</label>
+<input type="text" name="title" class="form-control" th:value="${product.title}">
+</div>
+
+<div class="mb-3">
+<label>Enter Description</label>
+<textarea  rows="3" cols=" " name="description" class="form-control">[[${product.description}]]</textarea>
+</div>
+
+<div class="row">
+<div class="mb-3 col">
+<label>Category</label>
+<select class="form-control" name="category" th:value="${product.category}">
+<option th:each="pro,c:${product}" >[[${pro.category}]]</option>
+<option th:each="cat,c:${categorys}" >[[${cat.name}]]</option>
+</select>
+</div>
+<div class="mb-3 col">
+<label>Enter Price</label>
+<input type="number" name="price" class="form-control" th:value="${product.price}" >
+</div>
+</div>
+<div class="mb-3">
+<label>Status</label>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="isActive" id="flexRadioDefault1"  value="true" th:checked="${product.isActive==true}">
+  <label class="form-check-label" for="flexRadioDefault1">
+Active
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="isActive" id="flexRadioDefault2"  value="false"  th:checked="${product.isActive==false}">
+  <label class="form-check-label" for="flexRadioDefault2">
+Inactive  </label>
+</div>
+
+</div>
+
+
+<div class="row">
+<div class="mb-3 col">
+<label>Enter Discount</label>
+<input type="number" name="discount" class="form-control" th:value="${product.discount}">
+</div>
+<div class="mb-3 col">
+<label>Discount Price</label>
+<input type="number" class="form-control" th:value="${product.discountPrice}" readonly>
+</div>
+</div>
+
+<div class="row">
+<div class="mb-3 col">
+<label>Enter Stock</label>
+<input type="number" name="stock" class="form-control" th:value="${product.stock}">
+</div>
+</div>
+									<div class="mb-3 col">
+										<label>Upload Image</label> <input type="file" name="file"
+											class="form-control">
+									</div>
+
+									<div class="mt-1">
+										<img th:src="@{'/img/product_img/'+${product.image}}"
+											width="100px" height="100px">
+									</div>
+<button class="btn btn-primary col-md-12">Update</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+</body>
+</html>
+
