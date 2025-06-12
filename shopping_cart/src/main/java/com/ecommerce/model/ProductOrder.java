@@ -41,5 +41,6 @@ private String paymentType;
 
 @OneToOne(cascade = CascadeType.ALL)//🔹 Spring Boot and Hibernate will generate a foreign key (order_address_id) in the product_order table that references the id column of order_address.
 private OrderAddress orderAddress;
+
 }
 
