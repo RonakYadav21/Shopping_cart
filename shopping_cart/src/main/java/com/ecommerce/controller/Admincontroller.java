@@ -39,10 +39,13 @@ import com.ecommerce.util.OrderStatus;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping("/admin")
 public class Admincontroller {
+	private static final  Logger logger=LoggerFactory.getLogger( Admincontroller.class);
 
 	@Autowired
 	private CategoryService categoryservice;
@@ -110,7 +113,7 @@ public class Admincontroller {
 	@PostMapping("/saveCategory")
 	public String saveCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file,
 			HttpSession session) throws IOException {
-System.out.println("added category "+category.getId());
+		logger.info("added category "+category.getId());
 		String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
 		category.setImageName(imageName);
 
