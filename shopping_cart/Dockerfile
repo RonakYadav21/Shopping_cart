@@ -1,10 +1,16 @@
 FROM eclipse-temurin:17-jdk-alpine
 
+# Install Maven
+RUN apk add --no-cache maven
+
+# Set workdir
 WORKDIR /app
 
-# Copy the JAR file and rename it to app.jar
-COPY target/shopping_cart-1.0.jar app.jar
+# Copy everything
+COPY . .
 
-EXPOSE 8080
+# Build the app (downloads dependencies and builds jar)
+RUN mvn clean package -DskipTests
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run the jar
+CMD ["java", "-jar", "target/shopping_cart-1.0.jar"]
